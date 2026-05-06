@@ -19,8 +19,8 @@ const BrowserRouter = createBrowserRouter(paths);
 
 const App = () => {
     return (
-    <MantineProvider> // Wraps the app, provides global theme, styles, and context.
-      <RouterProvider router={BrowserRouter}/>  // Injects React Router into your component tree, enabling navigation. It looks at the current URL and renders the correct route.
+    <MantineProvider>
+      <RouterProvider router={BrowserRouter}/>
     </MantineProvider>
     )
 };

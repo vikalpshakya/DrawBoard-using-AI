@@ -11,7 +11,7 @@ interface GeneratedResult {
     answer: string;
 }
 
-interface Response {
+interface ApiResponse {
     expr: string;
     result: string;
     assign: boolean;
@@ -44,7 +44,13 @@ export default function Home() {
 
     useEffect(() => {
         if (result) {
-            renderLatexToCanvas(result.expression, result.answer);
+            const latex = `\\(\\LARGE{\\text{${result.expression}} = \\text{${result.answer}}}\\)`;
+            setLatexExpression(prev => [...prev, latex]);
+            const canvas = canvasRef.current;
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
         }
     }, [result]);
 
@@ -88,21 +94,6 @@ export default function Home() {
 
     }, []);
 
-    const renderLatexToCanvas = (expression: string, answer: string) => {
-        // console.log(expression);
-        const latex = `\\(\\LARGE{\\text{${expression}} = \\text{${answer}}}\\)`;
-        // console.log(latex);
-        setLatexExpression([...latexExpression, latex]);
-
-        // Clear the main canvas
-        const canvas = canvasRef.current;
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            if (ctx) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-        }
-    };
 
 
     const resetCanvas = () => {
@@ -158,15 +149,11 @@ export default function Home() {
                 }
             });
 
-            const resp = await response.data;
+            const resp = response.data;
             console.log('Response', resp);
-            resp.data.forEach((data: Response) => {
+            resp.data.forEach((data: ApiResponse) => {
                 if (data.assign === true) {
-                    // dict_of_vars[resp.result] = resp.answer;
-                    setDictOfVars({
-                        ...dictOfVars,
-                        [data.expr]: data.result
-                    });
+                    setDictOfVars(prev => ({ ...prev, [data.expr]: data.result }));
                 }
             });
             const ctx = canvas.getContext('2d');
@@ -189,7 +176,7 @@ export default function Home() {
             const centerY = (minY + maxY) / 2;
 
             setLatexPosition({ x: centerX, y: centerY });
-            resp.data.forEach((data: Response) => {
+            resp.data.forEach((data: ApiResponse) => {
                 setTimeout(() => {
                     setResult({
                         expression: data.expr,
@@ -206,8 +193,7 @@ export default function Home() {
                 <Button
                     onClick={() => setReset(true)}
                     className='z-20 bg-black text-white'
-                    variant='default' 
-                    color='black'
+                    variant='default'
                 >
                     Reset
                 </Button>
@@ -220,7 +206,6 @@ export default function Home() {
                     onClick={runRoute}
                     className='z-20 bg-black text-white'
                     variant='default'
-                    color='white'
                 >
                     Run
                 </Button>
