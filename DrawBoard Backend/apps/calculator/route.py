@@ -1,20 +1,30 @@
-from fastapi import APIRouter
+import logging
 import base64
 from io import BytesIO
+from fastapi import APIRouter, HTTPException
 from apps.calculator.utils import analyze_image
 from schema import ImageData
 from PIL import Image
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter()
 
-@router.post('')
-async def run(data: ImageData):
-    image_data = base64.b64decode(data.image.split(",")[1])  # Assumes data:image/png;base64,<data>
-    image_bytes = BytesIO(image_data)
-    image = Image.open(image_bytes)
-    responses = analyze_image(image, dict_of_vars=data.dict_of_vars)
-    data = []
-    for response in responses:
-        data.append(response)
-    print('response in route: ', response)
-    return {"message": "Image processed", "data": data, "status": "success"}
+
+@router.post("")
+def calculate(request: ImageData):
+    try:
+        image_data = base64.b64decode(request.image.split(",")[1])
+        image = Image.open(BytesIO(image_data))
+    except Exception as e:
+        logger.error("Failed to decode image: %s", e)
+        raise HTTPException(status_code=400, detail="Invalid image data") from e
+
+    try:
+        results = analyze_image(image, dict_of_vars=request.dict_of_vars)
+    except ValueError as e:
+        logger.error("Analysis failed: %s", e)
+        raise HTTPException(status_code=422, detail=str(e)) from e
+
+    logger.info("Returning %d results", len(results))
+    return {"message": "Image processed", "data": results, "status": "success"}
