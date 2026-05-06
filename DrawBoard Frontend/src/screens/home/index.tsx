@@ -151,7 +151,7 @@ export default function Home() {
         if (canvas) {
             const response = await axios({
                 method: 'post',
-                url: `https://universal-math-notes-backend.onrender.com/calculate`,
+                url: `http://localhost:8900/calculate`,
                 data: {
                     image: canvas.toDataURL('image/png'),
                     dict_of_vars: dictOfVars
@@ -239,13 +239,14 @@ export default function Home() {
                 <Draggable
                     key={index}
                     defaultPosition={latexPosition}
-                    onStop={(_e,data) => setLatexPosition({ x: data.x, y: data.y })}
+                    onStop={(_e, data) => setLatexPosition({ x: data.x, y: data.y })}
                 >
                     <div className="absolute p-2 text-white rounded shadow-md">
                         <div className="latex-content">{latex}</div>
                     </div>
                 </Draggable>
             ))}
+
         </>
     );
 }
