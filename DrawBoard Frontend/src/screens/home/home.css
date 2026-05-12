@@ -1,0 +1,259 @@
+/* ── Grimoire Canvas Root ── */
+.grimoire-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 38%, #160e08 0%, #09060a 100%);
+  font-family: var(--font-display);
+}
+
+/* Grain texture overlay */
+.grimoire-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Vignette */
+.grimoire-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,0.52) 100%);
+}
+
+/* ── Sidebar / Toolbox ── */
+.grimoire-sidebar {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 7px;
+  background: linear-gradient(170deg, #18120e 0%, #100c08 100%);
+  border: 1px solid rgba(201,161,60,0.38);
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(201,161,60,0.08) inset,
+    0 0 40px rgba(201,161,60,0.06),
+    0 12px 40px rgba(0,0,0,0.5);
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  z-index: 10;
+}
+.grimoire-sidebar::-webkit-scrollbar { display: none; }
+
+.grimoire-ornament {
+  color: rgba(201,161,60,0.6);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 3px;
+  margin: 1px 0;
+  user-select: none;
+}
+
+.grimoire-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,161,60,0.28), transparent);
+  margin: 3px 0;
+  flex-shrink: 0;
+}
+
+/* ── Tool Buttons ── */
+.grimoire-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #7a6040;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.grimoire-btn:hover {
+  color: #c9a13c;
+  background: rgba(201,161,60,0.08);
+}
+.grimoire-btn.active {
+  color: #e8c870;
+  background: rgba(201,161,60,0.14);
+  border-color: rgba(201,161,60,0.42);
+  box-shadow: 0 0 10px rgba(201,161,60,0.12) inset;
+}
+
+/* ── Color Swatch Grid ── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.grimoire-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  border: 2px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+  padding: 0;
+}
+.grimoire-swatch:hover {
+  transform: scale(1.12);
+  border-color: rgba(255,255,255,0.22);
+}
+.grimoire-swatch.active {
+  border-color: rgba(201,161,60,0.88);
+  box-shadow: 0 0 8px rgba(201,161,60,0.35);
+}
+
+/* ── Cast Button ── */
+.cast-btn {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 24px;
+  background: linear-gradient(135deg, #201508 0%, #140e05 100%);
+  border: 1px solid rgba(201,161,60,0.52);
+  border-radius: 8px;
+  color: #e8c870;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow:
+    0 0 28px rgba(201,161,60,0.1),
+    0 6px 20px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(201,161,60,0.07) inset;
+  transition: box-shadow 0.2s, border-color 0.2s, color 0.2s;
+  z-index: 10;
+}
+.cast-btn:hover:not(:disabled) {
+  border-color: rgba(201,161,60,0.78);
+  color: #f0d888;
+  box-shadow:
+    0 0 40px rgba(201,161,60,0.18),
+    0 6px 20px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(201,161,60,0.12) inset;
+}
+.cast-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cast-glyph {
+  font-size: 15px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* ── Error Toast ── */
+.grimoire-error {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  background: rgba(139,21,32,0.92);
+  border: 1px solid rgba(180,40,55,0.48);
+  border-radius: 8px;
+  color: #e8d0a0;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  z-index: 20;
+}
+.grimoire-error button {
+  background: none;
+  border: none;
+  color: #e8d0a0;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  margin-left: 4px;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+.grimoire-error button:hover { opacity: 1; }
+
+/* ── Result Scroll ── */
+.result-scroll-wrapper {
+  position: absolute;
+  cursor: grab;
+  max-width: 360px;
+}
+.result-scroll-wrapper:active { cursor: grabbing; }
+
+.result-scroll {
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #201a10 0%, #150f08 100%);
+  border: 1px solid rgba(201,161,60,0.42);
+  border-radius: 10px;
+  color: #e8c870;
+  font-family: var(--font-text);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 600;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.5;
+  box-shadow:
+    0 0 0 1px rgba(201,161,60,0.07) inset,
+    0 0 40px rgba(201,161,60,0.09),
+    0 10px 36px rgba(0,0,0,0.55);
+  animation: scrollReveal 0.4s ease forwards;
+}
+
+.result-label {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--parchment-dim);
+  display: block;
+  margin-bottom: 6px;
+}
+
+@keyframes scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes castSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin { animation: castSpin 1s linear infinite; }
