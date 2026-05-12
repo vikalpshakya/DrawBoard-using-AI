@@ -22,7 +22,7 @@ def calculate(request: ImageData):
 
     try:
         results = analyze_image(image, dict_of_vars=request.dict_of_vars)
-    except ValueError as e:
+    except Exception as e:
         logger.error("Analysis failed: %s", e)
         raise HTTPException(status_code=422, detail=str(e)) from e
 

@@ -1,123 +1,126 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Sparkles, PenTool, Brain, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import './landing.css';
 
 export default function Landing() {
     const navigate = useNavigate();
 
     return (
-        <div className="landing-page">
-            {/* Background decorations */}
-            <div className="bg-grid" />
-            <div className="floating-symbols">
-                <span className="symbol symbol-1">∫</span>
-                <span className="symbol symbol-2">π</span>
-                <span className="symbol symbol-3">∑</span>
-                <span className="symbol symbol-4">√</span>
-                <span className="symbol symbol-5">∞</span>
-                <span className="symbol symbol-6">Δ</span>
-                <span className="symbol symbol-7">θ</span>
-                <span className="symbol symbol-8">λ</span>
+        <div className="landing-root">
+            <div className="landing-grain" />
+
+            {/* Floating rune symbols */}
+            <div className="runes">
+                <span className="rune">∫</span>
+                <span className="rune">π</span>
+                <span className="rune">∑</span>
+                <span className="rune">√</span>
+                <span className="rune">∞</span>
+                <span className="rune">Δ</span>
+                <span className="rune">θ</span>
+                <span className="rune">λ</span>
             </div>
 
-            {/* Main content */}
+            {/* ── Left: Content ── */}
             <div className="landing-content">
-                {/* Badge */}
-                <div className="badge">
-                    <Sparkles size={14} />
-                    <span>Powered by Gemini AI</span>
+                <div className="eyebrow">
+                    <span className="eyebrow-dot" />
+                    AI POWERED DRAWBOARD
                 </div>
 
-                {/* Headline */}
                 <h1 className="headline">
-                    <span className="headline-line">Draw it.</span>
-                    <span className="headline-line gradient-text">Solve it.</span>
+                    Draw it.
+                    <span className="headline-gold">Solve it.</span>
                 </h1>
 
                 <p className="subheadline">
-                    A smart canvas that understands your math. Draw equations,
-                    diagrams, or abstract concepts — and watch AI solve them instantly.
+                    An intelligent canvas that reads your handwriting.
+                    Sketch equations, diagrams, or abstract ideas — and watch
+                    the answer emerge.
                 </p>
 
-                {/* Feature pills */}
                 <div className="features">
-                    <div className="feature-pill">
-                        <PenTool size={16} />
-                        <span>Draw freely</span>
+                    <div className="feature-item">
+                        <span className="feature-rune">✐</span>
+                        Draw freely on an infinite canvas
                     </div>
-                    <div className="feature-pill">
-                        <Brain size={16} />
-                        <span>AI-powered</span>
+                    <div className="feature-item">
+                        <span className="feature-rune">◎</span>
+                        AI reads your handwriting instantly
                     </div>
-                    <div className="feature-pill">
-                        <Zap size={16} />
-                        <span>Instant results</span>
+                    <div className="feature-item">
+                        <span className="feature-rune">⟡</span>
+                        Results appear where you drew
                     </div>
                 </div>
 
-                {/* CTA Button */}
-                <button className="cta-button" onClick={() => navigate('/draw')}>
-                    <span>Start Drawing</span>
-                    <ArrowRight size={20} />
+                <button className="cta-btn" onClick={() => navigate('/draw')}>
+                    START DRAWING
+                    <ArrowRight size={16} className="cta-arrow" />
                 </button>
             </div>
 
-            {/* Animated Preview */}
-            <div className="preview-container">
-                <div className="browser-frame">
-                    <div className="browser-bar">
-                        <div className="traffic-lights">
-                            <span className="dot red" />
-                            <span className="dot yellow" />
-                            <span className="dot green" />
+            {/* ── Right: Tome preview ── */}
+            <div className="tome-container">
+                <div className="tome-frame">
+                    {/* Corner ornaments */}
+                    <div className="tome-corner tome-corner--tl" />
+                    <div className="tome-corner tome-corner--tr" />
+                    <div className="tome-corner tome-corner--bl" />
+                    <div className="tome-corner tome-corner--br" />
+
+                    {/* Header */}
+                    <div className="tome-header">
+                        <span className="tome-title">drawboard · canvas</span>
+                        <div className="tome-dots">
+                            <div className="tome-dot" />
+                            <div className="tome-dot" />
+                            <div className="tome-dot" />
                         </div>
-                        <div className="url-bar">drawboard.ai/draw</div>
                     </div>
-                    <div className="canvas-preview">
-                        {/* Animated toolbar mockup */}
-                        <div className="mock-toolbar">
-                            <div className="mock-tool active" />
-                            <div className="mock-tool" />
-                            <div className="mock-divider" />
-                            <div className="mock-swatch" style={{ background: '#ffffff' }} />
-                            <div className="mock-swatch" style={{ background: '#ee3333' }} />
-                            <div className="mock-swatch" style={{ background: '#228be6' }} />
-                            <div className="mock-swatch" style={{ background: '#40c057' }} />
+
+                    {/* Canvas area */}
+                    <div className="tome-canvas">
+                        {/* Mini toolbar */}
+                        <div className="mock-tools">
+                            <div className="mock-tool-btn active" />
+                            <div className="mock-tool-btn" />
+                            <div className="mock-tool-divider" />
+                            <div className="mock-swatch-sm" style={{ background: '#f0e8d0' }} />
+                            <div className="mock-swatch-sm" style={{ background: '#e8c870' }} />
+                            <div className="mock-swatch-sm" style={{ background: '#cc3333' }} />
+                            <div className="mock-swatch-sm" style={{ background: '#4488ee' }} />
                         </div>
 
-                        {/* Animated SVG drawing */}
-                        <svg className="drawing-svg" viewBox="0 0 500 250" fill="none">
-                            {/* "2+3=" drawn as animated path */}
+                        {/* Animated inscription */}
+                        <svg className="inscription-svg" viewBox="0 0 300 150" fill="none">
+                            {/* "2" */}
                             <path
-                                className="draw-path path-1"
-                                d="M 80 80 C 80 60, 110 55, 110 75 C 110 95, 75 115, 115 120"
-                                stroke="#ffffff"
-                                strokeWidth="3"
-                                strokeLinecap="round"
+                                className="inscribe-path inscribe-1"
+                                d="M 50 55 C 50 38, 78 34, 78 52 C 78 70, 44 88, 86 92"
+                                stroke="#e0cc8e"
+                                strokeWidth="2.5"
                             />
-                            {/* Plus sign */}
+                            {/* "+" */}
                             <path
-                                className="draw-path path-2"
-                                d="M 145 85 L 145 110 M 132 97 L 158 97"
-                                stroke="#ffffff"
-                                strokeWidth="3"
-                                strokeLinecap="round"
+                                className="inscribe-path inscribe-2"
+                                d="M 116 62 L 116 84 M 105 73 L 127 73"
+                                stroke="#e0cc8e"
+                                strokeWidth="2.5"
                             />
-                            {/* 3 */}
+                            {/* "3" */}
                             <path
-                                className="draw-path path-3"
-                                d="M 185 65 C 210 65, 215 85, 195 90 C 215 95, 210 120, 185 120"
-                                stroke="#ffffff"
-                                strokeWidth="3"
-                                strokeLinecap="round"
+                                className="inscribe-path inscribe-3"
+                                d="M 148 42 C 172 42, 176 60, 158 66 C 176 72, 172 94, 148 94"
+                                stroke="#e0cc8e"
+                                strokeWidth="2.5"
                             />
                         </svg>
 
-                        {/* Result that fades in */}
-                        <div className="mock-result">
-                            <span className="result-expr">2 + 3</span>
-                            <span className="result-eq">=</span>
-                            <span className="result-answer">5</span>
+                        {/* Result card */}
+                        <div className="tome-result">
+                            <span className="tome-result-label">RESULT</span>
+                            <span className="tome-result-value">2 + 3 = 5</span>
                         </div>
                     </div>
                 </div>

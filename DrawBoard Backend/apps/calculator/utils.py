@@ -8,7 +8,7 @@ from constants import GEMINI_API_KEY
 logger = logging.getLogger(__name__)
 
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
 PROMPT_TEMPLATE = """You have been given an image with some mathematical expressions, equations, or graphical problems, and you need to solve them.
 
