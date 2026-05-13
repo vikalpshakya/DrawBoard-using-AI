@@ -19,17 +19,23 @@
 
 ## 📸 Screenshots
 
- **Landing Page** — The Grimoire entrance
+### Landing Page — The Grimoire entrance
 
-![Landing Page](docs/screenshots/landing.png)
+<p align="center">
+  <img src="docs/screenshots/landing.png" width="700"/>
+</p>
 
- **Canvas** — Draw equations, watch them solved in real time
+### Canvas — Draw equations, watch them solved in real time
 
-![Canvas](docs/screenshots/canvas.png)
+<p align="center">
+  <img src="docs/screenshots/canvas.png" width="700"/>
+</p>
 
- **Analyze** — AI-analyzed answer appears on the canvas
+### Analyze — AI analyzed answer appears on the canvas
 
-![Result](docs/screenshots/result.png)
+<p align="center">
+  <img src="docs/screenshots/result.png" width="700"/>
+</p>
 
 ---
 
