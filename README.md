@@ -19,15 +19,15 @@
 
 ## 📸 Screenshots
 
-> **Landing Page** — The Grimoire entrance
+ **Landing Page** — The Grimoire entrance
 
 ![Landing Page](docs/screenshots/landing.png)
 
-> **Canvas** — Draw equations, watch them solved in real time
+ **Canvas** — Draw equations, watch them solved in real time
 
 ![Canvas](docs/screenshots/canvas.png)
 
-> **Result** — AI-analyzed answer appears on the canvas
+ **Analyze** — AI-analyzed answer appears on the canvas
 
 ![Result](docs/screenshots/result.png)
 
@@ -35,21 +35,9 @@
 
 ## 🧠 What is DrawBoard AI?
 
-DrawBoard AI is a **handwriting-aware mathematical canvas** powered by Google's Gemini Vision model. Draw anything on the canvas — a simple arithmetic expression, a system of equations, a geometric problem, or even an abstract concept — and the AI reads it, solves it, and overlays the result directly on your canvas.
+DrawBoard AI is a **handwriting aware canvas** powered by Google's Gemini Vision model. Draw anything on the canvas — an arithmetic expression, a system of equations, a Scenery or even an abstract concept and the AI reads it, solves it, and overlays the result directly on your canvas.
 
 No typing. No forms. Just draw.
-
-### Supported input types
-
-| Type | Example |
-|------|---------|
-| Simple expressions | `2 + 3 × 4`, `√144` |
-| Algebraic equations | `x² + 2x + 1 = 0` |
-| Variable assignment | `x = 5, y = 10` |
-| Graphical word problems | Pythagorean triangles, collision diagrams |
-| Abstract concepts | Drawings of emotions, historical scenes |
-
----
 
 ## ⚙️ Tech Stack
 
@@ -151,10 +139,6 @@ npm run dev
 
 Frontend runs at → `http://localhost:5173`
 
----
-
-## 🌍 Deployment
-
 ### Architecture
 
 ```
@@ -166,75 +150,6 @@ GitHub Repo (monorepo)
 └── DrawBoard Frontend/  →   Render Static Site (Vite build)
                               CDN-served globally
 ```
-
-### Deploy Backend (Render Web Service)
-
-| Field | Value |
-|-------|-------|
-| Root Directory | `DrawBoard Backend` |
-| Runtime | Python 3 |
-| Build Command | `pip install -r requirements.txt` |
-| Start Command | `gunicorn main:app -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT` |
-| Region | Oregon (US West) |
-
-**Environment Variables:**
-```
-GEMINI_API_KEY = your_key_here
-ENV            = prod
-```
-
-### Deploy Frontend (Render Static Site)
-
-| Field | Value |
-|-------|-------|
-| Root Directory | `DrawBoard Frontend` |
-| Build Command | `npm install && npm run build` |
-| Publish Directory | `dist` |
-
-**Environment Variables:**
-```
-VITE_API_URL = https://your-backend.onrender.com
-```
-
-**Rewrite Rule** (for React Router):
-```
-Source: /*   →   Destination: /index.html   →   Type: Rewrite
-```
-
-> ⚠️ `VITE_API_URL` is baked into the build at compile time. If you change it, trigger a new frontend deploy.
-
----
-
-## 📁 Project Structure
-
-```
-DrawBoard-using-AI/
-│
-├── DrawBoard Backend/
-│   ├── apps/
-│   │   └── calculator/
-│   │       ├── route.py        # POST /calculate endpoint
-│   │       └── utils.py        # Gemini API + image analysis
-│   ├── constants.py            # Environment config
-│   ├── schema.py               # Pydantic request/response models
-│   ├── main.py                 # FastAPI app + CORS + router
-│   └── requirements.txt
-│
-└── DrawBoard Frontend/
-    └── src/
-        ├── screens/
-        │   ├── home/
-        │   │   ├── index.tsx   # Canvas + drawing engine
-        │   │   └── home.css    # Grimoire UI styles
-        │   └── landing/
-        │       ├── index.tsx   # Landing page
-        │       └── landing.css
-        ├── constants.ts        # API URL + color swatches
-        ├── App.tsx             # Router setup
-        └── index.css           # Design system tokens
-```
-
----
 
 ## 🎨 Features
 
@@ -277,18 +192,6 @@ Analyzes a canvas image and returns solved expressions.
 ### `GET /`
 
 Health check — returns `{"message": "Server is running"}`.
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch — `git checkout -b feature/your-feature`
-3. Commit your changes — `git commit -m "feat: add your feature"`
-4. Push to the branch — `git push origin feature/your-feature`
-5. Open a Pull Request
-
----
 
 ## 📄 License
 
