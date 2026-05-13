@@ -35,7 +35,7 @@ export default function Landing() {
 
                 <p className="subheadline">
                     An intelligent canvas that reads your handwriting.
-                    Sketch equations, diagrams, or abstract ideas — and watch
+                    Sketch equations, diagrams, or abstract ideas and watch
                     the answer emerge.
                 </p>
 
